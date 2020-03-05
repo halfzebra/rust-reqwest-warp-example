@@ -1,8 +1,8 @@
-use std::collections::HashMap;
-use warp::{Filter};
-use log::{info};
-use std::time::{SystemTime};
+use log::info;
 use pretty_env_logger;
+use std::collections::HashMap;
+use std::time::SystemTime;
+use warp::Filter;
 
 async fn fetch_data() -> Result<HashMap<String, String>, reqwest::Error> {
     let data_source_url = "https://httpbin.org/ip";
@@ -31,7 +31,5 @@ async fn main() {
     // GET /* => 200 OK with JSON body
     let routes = warp::any().and_then(render_response);
 
-    warp::serve(routes)
-        .run(([127, 0, 0, 1], 3030))
-        .await;
+    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 }
